@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,6 +27,46 @@ SECRET_KEY = 'q0y$neq0%b2yi@pn)ycwaxe$#4&9s*q1if$a*i!*$s@trytojl'
 DEBUG = False
 
 ALLOWED_HOSTS = ['*', 'https://azurepythonwafl.azurewebsites.net/']
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'formatters': {
+        'timestamp': {
+            'format': '{asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
+    "handlers": {
+        "azure": {
+            'level': "DEBUG",
+            'class': "opencensus.ext.azure.log_exporter.AzureLogHandler",
+            'connection_string': 'InstrumentationKey=92eab4c8-f646-4dc9-bd4b-a973c7876952;IngestionEndpoint=https://northcentralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northcentralus.livediagnostics.monitor.azure.com/',
+            'filters': ['require_debug_false'],
+            'formatter': 'timestamp',
+         },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+         },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.FileHandler',
+            'filename': str(BASE_DIR) + "/logfile",
+            'formatter': 'timestamp',
+        },
+      },
+    "loggers": {
+        "logger_name": {"handlers": ["azure", "console", "logfile"]},
+    },
+}
 
 
 # Application definition
