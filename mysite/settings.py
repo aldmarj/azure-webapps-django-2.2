@@ -48,7 +48,6 @@ LOGGING = {
             'level': "DEBUG",
             'class': "opencensus.ext.azure.log_exporter.AzureLogHandler",
             'connection_string': 'InstrumentationKey=92eab4c8-f646-4dc9-bd4b-a973c7876952;IngestionEndpoint=https://northcentralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northcentralus.livediagnostics.monitor.azure.com/',
-            'filters': ['require_debug_false'],
             'formatter': 'timestamp',
          },
         "console": {
