@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import sys
+from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,14 +47,15 @@ LOGGING = {
     "handlers": {
         "azure": {
             'level': "DEBUG",
-            'class': "opencensus.ext.azure.log_exporter.AzureLogHandler",
+            "class": "opencensus.ext.azure.log_exporter.AzureLogHandler",
             'connection_string': 'InstrumentationKey=92eab4c8-f646-4dc9-bd4b-a973c7876952;IngestionEndpoint=https://northcentralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://northcentralus.livediagnostics.monitor.azure.com/',
             'formatter': 'timestamp',
          },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
-            "stream": sys.stdout,
+            'formatter': 'timestamp',
+            #"stream": sys.stdout,
          },
         'logfile': {
             'level':'DEBUG',

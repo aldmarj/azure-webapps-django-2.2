@@ -7,7 +7,7 @@ logger = logging.getLogger("logger_name")
 
 
 def index(request):
-    logger.warning("this will be tracked")
+    logger.warning("this will be tracked -- in App Service -- without STDOUT in console handler")
     return HttpResponse("Hello, world. You're at the polls index.")
 
 def post_list(request):
